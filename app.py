@@ -8,7 +8,7 @@ import json
 option_a = os.getenv('OPTION_A', "Emacs")
 option_b = os.getenv('OPTION_B', "Vi")
 hostname = socket.gethostname()
-version = 'v1'
+version = 'v2'
 
 app = Flask(__name__)
 
@@ -28,7 +28,7 @@ def hello():
     if request.method == 'POST':
         redis = get_redis()
         vote = request.form['vote']
-        data = json.dumps({'voter_id': voter_id, 'vote': vote})
+        data = json.dumps({'voter_id': voter_id, 'vote': do_vote})
         redis.rpush('votes', data)
 
     resp = make_response(render_template(
